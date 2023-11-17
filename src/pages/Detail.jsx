@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import detailpageimg from 'asset/detailpageimg.png';
 import trashcanicon from 'asset/trashcanimg.png';
 import detailpagebackgruond from 'asset/detailpagebackground.jpg';
@@ -8,10 +8,12 @@ import gohomeicon from 'asset/gohomeicon.jpg';
 import styled from 'styled-components';
 import GlobalStyle from 'GlobalStyle';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Context } from 'context/Context';
 
-function Detail({ list, setList }) {
-  console.log(list);
+function Detail() {
+  const data = useContext(Context);
 
+  console.log('data :', data);
   const [editValue, setEditValue] = useState('');
   const [editClick, setEditClick] = useState(false);
   const contentRef = useRef(null); // added
@@ -19,7 +21,7 @@ function Detail({ list, setList }) {
 
   const { id } = useParams();
   console.log(id);
-  const filter = list.filter((item) => {
+  const filter = data.list.filter((item) => {
     console.log(item.id);
     return item.id === id;
   });
@@ -27,24 +29,25 @@ function Detail({ list, setList }) {
   const navigate = useNavigate();
 
   const finishEdit = () => {
-    const newList = list.map((item) => {
+    const newList = data.list.map((item) => {
       console.log('Editvalue', editValue);
       if (item.id === id) {
         return { ...item, content: editValue };
       } else return item;
     });
-    setList(newList);
+    data.setList(newList);
   };
 
   const deleteHandler = (id) => {
-    const newList = list.filter((item) => item.id !== id);
+    const newList = data.list.filter((item) => item.id !== id);
     if (window.confirm('삭제 하시겠습니까?')) {
       alert('삭제 되었습니다.');
-      setList(newList);
+      data.setList(newList);
     }
   };
 
   //// --------------------------------------------------------
+
   return (
     <>
       <GlobalStyle />
@@ -148,9 +151,6 @@ function Detail({ list, setList }) {
 
           <StEditContentBox
             onClick={() => {
-              // console.log('contentRef', contentRef.current.innerText);
-              // console.log('editValue', editValue);
-              // console.log('editClick', editClick);
               setEditValue(contentRef.current.innerText);
               originalContentRef.current = contentRef.current.innerText; // added
               setEditClick(true);

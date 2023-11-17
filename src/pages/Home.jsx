@@ -3,14 +3,15 @@ import usericon from 'asset/usericon.png';
 import logo from 'asset/logo.png';
 import GlobalStyle from 'GlobalStyle';
 import { memberData } from 'memberData';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import uuid from 'react-uuid';
 import MemberBtnBox from 'components/Home/MemberBtnBox';
 import InputBox from '../components/Home/InputBox';
 import CardContainer from 'components/Home/CardContainer';
+import { Context } from 'context/Context';
 
-function Home({ list, setList }) {
-  console.log(list);
+function Home() {
+  const data = useContext(Context);
   const [nickname, setNickname] = useState('');
   const [content, setContent] = useState('');
   const [memberSelect, setMemberSelect] = useState('민지');
@@ -29,7 +30,7 @@ function Home({ list, setList }) {
     if (content === '' && nickname === '') {
       return alert('닉네임과 내용중 둘 중 하나는 써주세요!');
     } else {
-      setList([...list, newList]);
+      data.setList([...data.list, newList]);
       setNickname('');
       setContent('');
     }
@@ -53,7 +54,7 @@ function Home({ list, setList }) {
           memberData={memberData}
           addCard={addCard}
         />
-        <CardContainer memberName={memberName} list={list} />
+        <CardContainer memberName={memberName} list={data.list} />
       </Stcontainer>
     </>
   );

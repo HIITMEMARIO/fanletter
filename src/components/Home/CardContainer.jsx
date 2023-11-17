@@ -5,7 +5,7 @@ import NoCard from './NoCard';
 
 function CardContainer({ list, memberName }) {
   const filteredList = list.filter((item) => {
-    console.log(item);
+    console.log('item:', item);
     return memberName === item.writedTo;
   });
 

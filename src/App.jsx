@@ -1,6 +1,7 @@
 import React from 'react';
 import Router from 'shared/Router';
 import { useState } from 'react';
+import { Context } from 'context/Context';
 
 function App() {
   const [list, setList] = useState([
@@ -55,7 +56,16 @@ function App() {
       id: '5',
     },
   ]);
-  return <Router list={list} setList={setList} />;
+  return (
+    <Context.Provider
+      value={{
+        list: list,
+        setList: setList,
+      }}
+    >
+      <Router />
+    </Context.Provider>
+  );
 }
 
 export default App;
