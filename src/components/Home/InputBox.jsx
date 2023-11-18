@@ -21,9 +21,8 @@ function InputBox({
           value={nickname}
           onChange={(e) => {
             setNickname(e.target.value);
-            console.log(nickname);
           }}
-          height="30px"
+          $height="30px"
           maxLength={20}
           placeholder="최대 20글자까지 작성할 수 있습니다."
         ></StInput>
@@ -35,9 +34,8 @@ function InputBox({
           value={content}
           onChange={(e) => {
             setContent(e.target.value);
-            console.log(content);
           }}
-          height="100px"
+          $height="100px"
           maxLength={100}
           placeholder="최대 100자까지만 작성할 수 있습니다."
         ></StInput>
@@ -48,12 +46,15 @@ function InputBox({
         <StPtag>to Who?</StPtag>
         <Stselect
           onChange={(e) => {
-            console.log(e.target.value);
             return setMemberSelect(e.target.value);
           }}
         >
           {memberData.map((item) => {
-            return <option value={item.name}>{item.name}</option>;
+            return (
+              <option key={item.id} value={item.name}>
+                {item.name}
+              </option>
+            );
           })}
         </Stselect>
       </StSendTo>
@@ -85,7 +86,7 @@ const StPtag = styled.p`
 `;
 const StInput = styled.textarea`
   width: 600px;
-  height: ${(props) => props.height};
+  height: ${(props) => props.$height};
   margin-left: 10px;
   resize: none;
   outline: 3px double #c3c3c3;
@@ -104,7 +105,7 @@ const StContent = styled.div`
   justify-content: center;
 `;
 
-const StSendTo = styled.p`
+const StSendTo = styled.div`
   width: 1000px;
   display: inline-flex;
   justify-content: center;

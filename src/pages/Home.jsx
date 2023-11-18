@@ -8,13 +8,20 @@ import uuid from 'react-uuid';
 import MemberBtnBox from 'components/Home/MemberBtnBox';
 import InputBox from '../components/Home/InputBox';
 import CardContainer from 'components/Home/CardContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { addList } from 'redux/modules/list';
 
-function Home({ list, setList }) {
-  console.log(list);
+function Home() {
   const [nickname, setNickname] = useState('');
   const [content, setContent] = useState('');
   const [memberSelect, setMemberSelect] = useState('민지');
   const [memberName, setMemberName] = useState('민지');
+
+  const list = useSelector((state) => {
+    return state.listReducer;
+  });
+
+  const dispatch = useDispatch();
 
   const addCard = () => {
     const newList = {
@@ -29,7 +36,7 @@ function Home({ list, setList }) {
     if (content === '' && nickname === '') {
       return alert('닉네임과 내용중 둘 중 하나는 써주세요!');
     } else {
-      setList([...list, newList]);
+      dispatch(addList(newList));
       setNickname('');
       setContent('');
     }

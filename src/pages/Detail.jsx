@@ -8,9 +8,16 @@ import gohomeicon from 'asset/gohomeicon.jpg';
 import styled from 'styled-components';
 import GlobalStyle from 'GlobalStyle';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useDispatch } from 'react-redux';
+import { editList, deleteList } from 'redux/modules/list';
 
-function Detail({ list, setList }) {
-  console.log(list);
+function Detail() {
+  const list = useSelector((state) => {
+    return state.listReducer;
+  });
+
+  const dispatch = useDispatch();
 
   const [editValue, setEditValue] = useState('');
   const [editClick, setEditClick] = useState(false);
@@ -18,9 +25,7 @@ function Detail({ list, setList }) {
   const originalContentRef = useRef(''); // added 2
 
   const { id } = useParams();
-  console.log(id);
   const filter = list.filter((item) => {
-    console.log(item.id);
     return item.id === id;
   });
 
@@ -28,19 +33,18 @@ function Detail({ list, setList }) {
 
   const finishEdit = () => {
     const newList = list.map((item) => {
-      console.log('Editvalue', editValue);
       if (item.id === id) {
         return { ...item, content: editValue };
       } else return item;
     });
-    setList(newList);
+    dispatch(editList(newList));
   };
 
   const deleteHandler = (id) => {
     const newList = list.filter((item) => item.id !== id);
-    if (window.confirm('삭제 하시겠습니까?')) {
-      alert('삭제 되었습니다.');
-      setList(newList);
+    if (window.confirm('삭제 하시겠습니까?!')) {
+      alert('삭제 되었습니다!!.');
+      dispatch(deleteList(newList));
     }
   };
 
@@ -53,11 +57,10 @@ function Detail({ list, setList }) {
         <StContainer>
           <StDetailPageImg>
             {filter.map((item) => {
-              console.log(item);
               return (
-                <StmemberCards key={item.id}>
+                <div key={item.id}>
                   <Stnickname>
-                    <StPtag fontSize="60px">{item.nickname}</StPtag>
+                    <StPNickname>{item.nickname}</StPNickname>
                   </Stnickname>
                   <StToWho>To.{item.writedTo}</StToWho>
                   <Stcontents
@@ -65,21 +68,22 @@ function Detail({ list, setList }) {
                     defaultValue={item.content}
                     onChange={(e) => {
                       setEditValue(e.target.value);
-                      console.log(editValue);
                     }}
                   ></Stcontents>
                   <StTime>
-                    <StPtag fontSize="30px">작성시간 : {item.createdAt}</StPtag>
+                    <StPtag $fontSize="30px">
+                      작성시간 : {item.createdAt}
+                    </StPtag>
                   </StTime>
                   <STUserImg src={item.avatar} />
-                </StmemberCards>
+                </div>
               );
             })}
           </StDetailPageImg>
 
           <StTrashCanBox onClick={() => {}}>
             <StTrashCanIcon src={trashcanicon} />
-            <StPtag fontSize="18px">Recycle Bin</StPtag>
+            <StPtag $fontSize="18px">Recycle Bin</StPtag>
           </StTrashCanBox>
 
           <StgobackiconBox
@@ -88,7 +92,7 @@ function Detail({ list, setList }) {
             }}
           >
             <StGobackIcon src={gohomeicon} />
-            <StPtag fontSize="18px">Go Home</StPtag>
+            <StPtag $fontSize="18px">Go Home</StPtag>
           </StgobackiconBox>
 
           <StEditContentBox
@@ -103,26 +107,27 @@ function Detail({ list, setList }) {
             }}
           >
             <StEditContentIcon src={editcontenticon} />
-            <StPtag fontSize="18px">Finish Edit</StPtag>
+            <StPtag $fontSize="18px">Finish Edit</StPtag>
           </StEditContentBox>
         </StContainer>
       ) : (
         <StContainer>
           <StDetailPageImg>
             {filter.map((item) => {
-              console.log(item);
               return (
-                <StmemberCards key={item.id}>
+                <div key={item.id}>
                   <Stnickname>
-                    <StPtag fontSize="60px">{item.nickname}</StPtag>
+                    <StPNickname>{item.nickname}</StPNickname>
                   </Stnickname>
                   <StToWho>To.{item.writedTo} </StToWho>
                   <StPContent ref={contentRef}>{item.content}</StPContent>
                   <StTime>
-                    <StPtag fontSize="30px">작성시간 : {item.createdAt}</StPtag>
+                    <StPtag $fontSize="30px">
+                      작성시간 : {item.createdAt}
+                    </StPtag>
                   </StTime>
                   <STUserImg src={item.avatar} />
-                </StmemberCards>
+                </div>
               );
             })}
           </StDetailPageImg>
@@ -134,7 +139,7 @@ function Detail({ list, setList }) {
             }}
           >
             <StTrashCanIcon src={trashcanicon} />
-            <StPtag fontSize="18px">Recycle Bin</StPtag>
+            <StPtag $fontSize="18px">Recycle Bin</StPtag>
           </StTrashCanBox>
 
           <StgobackiconBox
@@ -143,21 +148,18 @@ function Detail({ list, setList }) {
             }}
           >
             <StGobackIcon src={gohomeicon} />
-            <StPtag fontSize="18px">Go Home</StPtag>
+            <StPtag $fontSize="18px">Go Home</StPtag>
           </StgobackiconBox>
 
           <StEditContentBox
             onClick={() => {
-              // console.log('contentRef', contentRef.current.innerText);
-              // console.log('editValue', editValue);
-              // console.log('editClick', editClick);
               setEditValue(contentRef.current.innerText);
               originalContentRef.current = contentRef.current.innerText; // added
               setEditClick(true);
             }}
           >
             <StEditContentIcon src={finishcontenticon} />
-            <StPtag fontSize="18px">Edit Content</StPtag>
+            <StPtag $fontSize="18px">Edit Content</StPtag>
           </StEditContentBox>
         </StContainer>
       )}
@@ -202,7 +204,7 @@ const StTrashCanIcon = styled.img`
   width: 200px;
 `;
 const StPtag = styled.p`
-  font-size: ${(props) => props.fontSize};
+  font-size: ${(props) => props.$fontSize};
   position: absolute;
   bottom: -30px;
 `;
@@ -246,15 +248,13 @@ const StEditContentBox = styled.div`
   }
 `;
 
-const StmemberCards = styled.div``;
-
 const Stnickname = styled.div`
   position: absolute;
   display: flex;
   width: 600px;
   height: 100px;
   padding: 10px;
-  top: 80px;
+  top: 100px;
   left: 50px;
 `;
 
@@ -284,7 +284,7 @@ const StPContent = styled.p`
   word-break: break-word;
 `;
 
-const StTime = styled.p`
+const StTime = styled.div`
   position: absolute;
   display: flex;
   width: 800px;
@@ -310,4 +310,7 @@ const StToWho = styled.p`
   color: pink;
 `;
 
+const StPNickname = styled.p`
+  font-size: 60px;
+`;
 export default Detail;

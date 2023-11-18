@@ -1,7 +1,7 @@
 import React from 'react';
 import memo from 'asset/memo.jpg';
 import styled from 'styled-components';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import usericon from 'asset/usericon.png';
 
 const StmemberCards = styled.div`
@@ -42,16 +42,16 @@ const Stcontents = styled.div`
 `;
 
 const StPtag = styled.p`
-  font-size: ${(props) => props.fontSize};
-  overflow: ${(props) => props.overflow};
-  text-overflow: ${(props) => props.textOverflow};
+  font-size: ${(props) => props.$fontSize};
+  overflow: ${(props) => props.$overflow};
+  text-overflow: ${(props) => props.$textOverflow};
+  white-space: ${(props) => props.$whiteSpace};
 `;
 
-const StTime = styled.p`
+const StTime = styled.div`
   position: absolute;
   display: flex;
   width: 500px;
-  /* background-color: #0088ff; */
   top: 140px;
   left: 10px;
 `;
@@ -66,10 +66,7 @@ const STUserImg = styled.img`
   outline: 3px double #818181;
 `;
 
-function Comment({ id, nickname, content, list }) {
-  console.log(id);
-  const navigate = useNavigate();
-
+function Comment({ id, nickname, content }) {
   const time = new Date().toLocaleString('ko', {});
 
   return (
@@ -77,15 +74,20 @@ function Comment({ id, nickname, content, list }) {
       <Link to={`/detail/${id}`}>
         <StmemberCards key={id}>
           <Stnickname>
-            <StPtag fontSize="30px">{nickname}</StPtag>
+            <StPtag $fontSize="30px">{nickname}</StPtag>
           </Stnickname>
           <Stcontents>
-            <StPtag fontSize="20px" overflow="hidden" textOverflow="ellipsis">
+            <StPtag
+              $fontSize="20px"
+              $overflow="hidden"
+              $textOverflow="ellipsis"
+              $whiteSpace="nowrap"
+            >
               {content}
             </StPtag>
           </Stcontents>
           <StTime>
-            <StPtag fontSize="20px">작성시간 : {time}</StPtag>
+            <StPtag $fontSize="20px">작성시간 : {time}</StPtag>
           </StTime>
           <STUserImg src={usericon} />
         </StmemberCards>

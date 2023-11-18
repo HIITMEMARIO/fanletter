@@ -9,10 +9,9 @@ function MemberBtnBox({ memberData, setMemberName }) {
         return (
           <StBtn
             key={item.id}
-            memberbtn={memberbtn}
+            // memberbtn={memberbtn}
             onClick={() => {
               setMemberName(item.name);
-              console.log(item.name);
             }}
           >
             {item.name}
@@ -47,11 +46,6 @@ const StBtn = styled.button`
   align-items: center;
   justify-content: center;
   outline: 3px double #c3c3c3;
-`;
-
-const StPtag = styled.p`
-  font-size: 30px;
-  display: flex;
 `;
 
 export default MemberBtnBox;

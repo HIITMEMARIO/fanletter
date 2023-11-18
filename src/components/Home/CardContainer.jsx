@@ -5,7 +5,6 @@ import NoCard from './NoCard';
 
 function CardContainer({ list, memberName }) {
   const filteredList = list.filter((item) => {
-    console.log(item);
     return memberName === item.writedTo;
   });
 
@@ -17,6 +16,7 @@ function CardContainer({ list, memberName }) {
         filteredList.map((item) => {
           return (
             <Comment
+              key={item.id}
               id={item.id}
               nickname={item.nickname}
               content={item.content}
