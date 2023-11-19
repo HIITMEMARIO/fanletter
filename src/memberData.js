@@ -8,11 +8,11 @@ export const memberData = [
     id: 2,
   },
   {
-    name: '혜린',
+    name: '해린',
     id: 3,
   },
   {
-    name: '해인',
+    name: '혜인',
     id: 4,
   },
   {
