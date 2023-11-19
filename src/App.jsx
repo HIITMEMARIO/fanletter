@@ -31,7 +31,7 @@ function App() {
         'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/646.jpg',
       content:
         '윈터1 Itaque nihil quae neque itaque. Non a officiis ducimus nemo consectetur. Ducimus libero voluptatum consequuntur.',
-      writedTo: '혜린',
+      writedTo: '해린',
       id: '3',
     },
     {
@@ -41,7 +41,7 @@ function App() {
         'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/37.jpg',
       content:
         '닝닝1 Sint qui eligendi repudiandae placeat maiores repudiandae assumenda repudiandae. Distinctio commodi iste. Qui architecto iusto.',
-      writedTo: '해인',
+      writedTo: '혜인',
       id: '4',
     },
     {

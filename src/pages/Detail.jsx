@@ -193,7 +193,7 @@ const StTrashCanBox = styled.div`
   left: 30px;
   top: 330px;
   &:hover {
-    outline: 2px dotted #fff;
+    filter: drop-shadow(10px 15px 10px #fac3fa);
   }
 `;
 
@@ -217,7 +217,7 @@ const StgobackiconBox = styled.div`
   left: 30px;
   top: 30px;
   &:hover {
-    outline: 2px dotted #fff;
+    filter: drop-shadow(10px 15px 10px #fac3fa);
   }
 `;
 
@@ -242,7 +242,7 @@ const StEditContentBox = styled.div`
   left: 30px;
   top: 180px;
   &:hover {
-    outline: 2px dotted #fff;
+    filter: drop-shadow(10px 15px 10px #fac3fa);
   }
 `;
 
